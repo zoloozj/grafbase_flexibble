@@ -6,7 +6,7 @@ interface Props {
   leftIcon?: string | null;
   rightIcon?: string | null;
   handleClick?: MouseEventHandler;
-  isSubmitting: boolean;
+  isSubmitting?: boolean;
   type?: "button" | "submit";
   bgColor?: string;
   textColor?: String;

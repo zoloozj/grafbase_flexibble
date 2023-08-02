@@ -8,6 +8,8 @@ export const createProjectMutation = `
 				createdBy {
 					email
 					name
+          avatarUrl
+          id
 				}
 			}
 		}
@@ -47,7 +49,7 @@ export const createUserMutation = `
 				avatarUrl
 				description
 				githubUrl
-				linkedinUrl
+				linkedInUrl
 				id
 			}
 		}
@@ -55,8 +57,8 @@ export const createUserMutation = `
 `;
 
 export const projectsQuery = `
-  query getProjects($category: String, $endcursor: String) {
-    projectSearch(first: 8, after: $endcursor, filter: {category: {eq: $category}}) {
+  query getProjects($category: String, $endCursor: String) {
+    projectSearch(first: 8, after: $endCursor, filter: {category: {eq: $category}}) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -73,11 +75,11 @@ export const projectsQuery = `
           image
           category
           createdBy {
-            id
             email
             name
             avatarUrl
-          }
+            id
+        }
         }
       }
     }
@@ -95,10 +97,10 @@ export const getProjectByIdQuery = `
       githubUrl
       category
       createdBy {
-        id
-        name
-        email
-        avatarUrl
+          email
+					name
+          avatarUrl
+          id
       }
     }
   }
@@ -113,7 +115,7 @@ export const getUserQuery = `
       avatarUrl
       description
       githubUrl
-      linkedinUrl
+      linkedInUrl
     }
   }
 `;
@@ -127,7 +129,7 @@ export const getProjectsOfUserQuery = `
       description
       avatarUrl
       githubUrl
-      linkedinUrl
+      linkedInUrl
       projects(last: $last) {
         edges {
           node {

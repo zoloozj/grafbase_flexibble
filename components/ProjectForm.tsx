@@ -2,11 +2,11 @@
 import { FormState, ProjectInterface, SessionInterface } from "@/common.types";
 import Image from "next/image";
 import FormField from "./FormField";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { categoryFilters } from "@/constants";
 import CustomMenu from "./CustomMenu";
 import Button from "./Button";
-import { createNewProject, fetchToken } from "@/lib/actions";
+import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -27,20 +27,27 @@ const ProjectForm = ({ type, session, project }: Props) => {
     category: project?.category || "",
   });
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     setIsSubmitting(true);
 
     const { token } = await fetchToken();
-
+    console.log('Хэрэглэгчийн ID', session?.user?.id);
+    
     try {
       if (type === "create") {
         await createNewProject(form, session?.user?.id, token);
+        console.log('Here it Works!!!');
+        
         router.push("/");
       }
+
+      if(type === 'edit') {
+        await updateProject(form, project?.id as string, token)
+      }
     } catch (error) {
-      console.log(error);
+      console.log('Үгүй ээ алдаа заагаад байна!!!', error);
     } finally {
       setIsSubmitting(false);
     }
